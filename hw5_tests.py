@@ -42,7 +42,7 @@ class TestCard(unittest.TestCase):
         for suit in range(4):
             c = hw5_cards.Card(suit, 12)
             self.assertEqual(c.rank_name, "Queen")
-        return c.rank_name
+        return c.rank_name, "Queen"
     
     def test_q2(self):
         '''
@@ -59,7 +59,7 @@ class TestCard(unittest.TestCase):
         for rank in range(1,14):
             c = hw5_cards.Card(1, rank)
             self.assertEqual(c.suit_name, "Clubs")
-        return c.suit_name
+        return c.suit_name, "Clubs"
  
 
     def test_q3(self):
@@ -77,7 +77,7 @@ class TestCard(unittest.TestCase):
         '''
         c = hw5_cards.Card(3, 13)
         self.assertEqual(str(c), "King of Spades")
-        return str(c)
+        return str(c), "King of Spades"
     
     def test_q4(self):
         '''
@@ -94,7 +94,7 @@ class TestCard(unittest.TestCase):
         d = hw5_cards.Deck()
         list_cards = d.cards
         self.assertEqual(len(list_cards), 52)
-        return len(list_cards)
+        return len(list_cards), 52
 
     def test_q5(self):
         '''
@@ -110,8 +110,8 @@ class TestCard(unittest.TestCase):
         '''
         d = hw5_cards.Deck()
         c = d.deal_card()
-        self.assertEqual(type(c), hw5_cards.Card)
-        return type(c)
+        self.assertIsInstance(c, hw5_cards.Card)
+        return c, hw5_cards.Card
     
     def test_q6(self):
         '''
@@ -131,13 +131,12 @@ class TestCard(unittest.TestCase):
         c = d.deal_card()
         num_cards2 = len(d.cards)
         self.assertEqual(num_cards2, num_cards1-1)
-        return num_cards2
+        return num_cards2, num_cards1-1
 
     def test_q7(self):
         '''
         1. fill in your test method for question 7:
         Test that if you invoke the replace_card method, the deck has one more card in it afterwards. (Please note that you want to use deal_card function first to remove a card from the deck and then add the same card back in)
-
         
         2. remove the pass command
         
@@ -151,8 +150,8 @@ class TestCard(unittest.TestCase):
         num_cards1 = len(d.cards)
         d.replace_card(c)
         num_cards2 = len(d.cards)
-        self.assertEqual(num_cards2, num_cards1+1)
-        return num_cards2
+        self.assertEqual(num_cards1+1, num_cards2, 52)
+        return num_cards1+1, num_cards2, 52
 
     
     def test_q8(self):
@@ -169,12 +168,10 @@ class TestCard(unittest.TestCase):
 
         '''
         d = hw5_cards.Deck()
-        c = d.deal_card() # Remove Card(3, 13) drom the deck
-        num_cards1 = len(d.cards) # 51
         d.replace_card(hw5_cards.Card(1, 2)) # Card(1,2) is already in the deck
-        num_cards2 = len(d.cards) # 51
-        self.assertEqual(num_cards2, num_cards1)
-        return num_cards2  
+        num_cards = len(d.cards) # 52
+        self.assertEqual(num_cards, 52)
+        return num_cards, 52
 
 
 
